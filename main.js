@@ -1,5 +1,9 @@
 const toggleMenu = document.querySelector('.menu');
 const toggleCart = document.querySelector('.cart');
+
+
+// ------ Se crean los articulos -----------------//
+
 const hoodies = {
     units: 0,
     stock: 10,
@@ -30,6 +34,8 @@ const sweatshirts = {
 }
 
 
+//--------------Se crean las variables necesarias---------//
+
 let totalItems = 0;
 let totalPrice = 0;
 const addHoodie = document.querySelector('.addHoodie');
@@ -56,10 +62,17 @@ const subtotalShirts = document.querySelector('.subtotalShirts');
 const subtotalSweatshirts = document.querySelector('.subtotalSweatshirts');
 
 
+// Se hacen eventos para mostrar y quitar el menu/carrito //
+
+
 document.querySelector('.toggle').addEventListener('click', () => toggleMenu.classList.add("show__menu"));
 document.querySelector('.menu__close').addEventListener('click', () => toggleMenu.classList.remove("show__menu"));
 document.querySelector('.shop').addEventListener('click', () => toggleCart.classList.add("show__cart"));
 document.querySelector('.cart__close').addEventListener('click', () => toggleCart.classList.remove("show__cart"));
+
+
+// cambio del menu al hacer scroll //
+
 
 if (document.getElementById('header')) {
     window.addEventListener('scroll', function () {
@@ -70,6 +83,11 @@ if (document.getElementById('header')) {
         }
     })
 }
+
+
+
+// Agregar y quitar items del carrito//
+
 
 function addItem(item) {
     if (item.stock <= item.units) {
@@ -91,6 +109,12 @@ function removeItem(item) {
     cartEmpty();
 }
 
+
+
+// Se agregan eventos al hacer click donde agrega y remueve articulos del carrito //
+// utilizando los datos almacenados en los articulos //
+
+
 addHoodie.addEventListener('click', addItem.bind(this, hoodies));
 addShirt.addEventListener('click', addItem.bind(this, shirts));
 addSweatshirt.addEventListener('click', addItem.bind(this, sweatshirts));
@@ -100,6 +124,9 @@ cartAddSweatshirt.addEventListener('click', addItem.bind(this, sweatshirts));
 cartRemoveHoodie.addEventListener('click', removeItem.bind(this, hoodies));
 cartRemoveShirt.addEventListener('click', removeItem.bind(this, shirts));
 cartRemoveSweatshirt.addEventListener('click', removeItem.bind(this, sweatshirts));
+
+
+// se agregan eventos donde al hacer click se guarde la informacion en las siguientes funciones
 
 
 trashHoodie.addEventListener('click', () => {
@@ -131,6 +158,9 @@ checkout.addEventListener('click', () => {
 });
 
 
+// Se crea una funcion con condicionales que permitan mostrar/remover items del carrito
+
+
 function cartEmpty() {
     if (totalItems > 0) {
         document.querySelector('.cart__empty').classList.add('cart__hide');
@@ -154,6 +184,11 @@ function cartEmpty() {
     }
 }
 
+
+
+// funcion que permite sumar el precio y cantidad de articulos
+
+
 function checkTotals() {
     totalItems = hoodies.units + shirts.units + sweatshirts.units;
     totalPrice = hoodies.subtotal() + shirts.subtotal() + sweatshirts.subtotal();
@@ -163,6 +198,10 @@ function checkTotals() {
         checkout.disabled = true;
     }
 }
+
+
+// contador de articulos y precios
+
 
 function updateInfo() {
     count.textContent = totalItems;
